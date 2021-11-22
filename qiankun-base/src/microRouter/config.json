@@ -1,0 +1,8 @@
+{
+  "development": {
+    "CCRC_MARKETING": "//localhost:9527"
+  },
+  "production": {
+    "CCRC_MARKETING": "//localhost:9527"
+  }
+}
