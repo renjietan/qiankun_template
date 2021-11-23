@@ -59,68 +59,61 @@ export const constantRoutes = [
     component: () => import('@/views/error-page/404'),
     hidden: true
   },
-  // {
-  //   path: '/401',
-  //   component: () => import('@/views/error-page/401'),
-  //   hidden: true
-  // },
+  {
+    path: '/401',
+    component: () => import('@/views/error-page/401'),
+    hidden: true
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index'),
+        name: 'Dashboard',
+        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+      }
+    ]
+  },
+  
 ]
 
 export const asyncRoutes = [
   {
-    path: '/',
+    path: 'test',
     component: Layout,
-    redirect: '/select_team',
-    name: 'select_team',
-    hidden: true,
-    children: [{
-      path: '/select_team',
-      name: "select_team",
-      component: () => import('@/views/select-team'),
-      hidden: true,
-    }],
-  },
-  {
-    path: '/ccrc',
-    component: Layout,
-    name: 'ccrc',
-    hidden: true,
-    children: [{
-      path: "marketing",
-      children: [{
-        path: "/ccrc/marketing"
-      }, {
-        path: 'test',
-        hidden: true,
-        name: 'test',
-        children: [
-          {
-            path: 'test1',
-            name: 'test1',
-          },
-          // {
-          //   path: 'test2',
-          //   name: 'test2',
-          // }
-        ]
-      },]
+    redirect: 'noRedirect',
+    name: 'test',
+    meta: {
+      title: '测试',
+      icon: 'lock',
     },
-      // {
-      //   path: "test",
-      //   children: [{
-      //     path: "test1",
-      //     path: "test2"
-      //   }]
-      // },
+    children: [
+      {
+        path: '/test1',
+        component: () => import('@/views/test/test1'),
+        name: 'test1',
+        meta: {
+          title: 'test1',
+        }
+      },
+      {
+        path: '/test2',
+        component: () => import('@/views/test/test2'),
+        name: 'test2',
+        meta: {
+          title: 'test2'
+        }
+      }
     ]
   },
-
   { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  mode: 'hash',
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

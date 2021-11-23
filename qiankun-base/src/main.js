@@ -19,8 +19,6 @@ import './utils/error-log' // error log
 import * as filters from './filters' // global filters
 import chaining from "@/directive/chaining";
 
-
-
 // if (process.env.NODE_ENV === 'production') {
 //   const { mockXHR } = require('../mock')
 //   mockXHR()

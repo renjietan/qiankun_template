@@ -38,16 +38,9 @@ Object.keys(filters).forEach(key => {
 Vue.config.productionTip = false
 
 new Vue({
-  el: '#app_marketing',
+  el: '#app',
   router,
   store,
   render: h => h(App),
 
 })
-
-
-// 微前端配置文件注入
-import tmvc from 'tmvc'
-// name 导出微应用生命周期
-const { bootstrap, mount, unmount } = tmvc.microMain()
-export { bootstrap, mount, unmount }

@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || 'vue Element Admin' // page title
+const name = defaultSettings.title || '后台管理系统'
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
@@ -24,7 +24,7 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: process.env.NODE_ENV === 'production' ? '././' : './',
+  publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
@@ -36,6 +36,7 @@ module.exports = {
       warnings: false,
       errors: true
     },
+    // before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -48,22 +49,9 @@ module.exports = {
     }
   },
   chainWebpack(config) {
-    // it can improve the speed of the first screen, it is recommended to turn on preload
-    // it can improve the speed of the first screen, it is recommended to turn on preload
-    config.plugin('preload').tap(() => [
-      {
-        rel: 'preload',
-        // to ignore runtime.js
-        // https://github.com/vuejs/vue-cli/blob/dev/packages/@vue/cli-service/lib/config/app.js#L171
-        fileBlacklist: [/\.map$/, /hot-update\.js$/, /runtime\..*\.js$/],
-        include: 'initial'
-      }
-    ])
-
-    // when there are many pages, it will cause too many meaningless requests
+    config.plugins.delete('preload')
     config.plugins.delete('prefetch')
 
-    // set svg-sprite-loader
     config.module
       .rule('svg')
       .exclude.add(resolve('src/icons'))
@@ -77,6 +65,16 @@ module.exports = {
       .loader('svg-sprite-loader')
       .options({
         symbolId: 'icon-[name]'
+      })
+      .end()
+
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .loader('vue-loader')
+      .tap(options => {
+        options.compilerOptions.preserveWhitespace = true
+        return options
       })
       .end()
 
@@ -99,30 +97,24 @@ module.exports = {
                   name: 'chunk-libs',
                   test: /[\\/]node_modules[\\/]/,
                   priority: 10,
-                  chunks: 'initial' // only package third parties that are initially dependent
+                  chunks: 'initial' //只打包最初依赖的第三方
                 },
                 elementUI: {
-                  name: 'chunk-elementUI', // split elementUI into a single package
-                  priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-                  test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+                  name: 'chunk-elementUI', // 将elementUI单独作为一个包进行分离
+                  priority: 20, //权重需要大于libs和app，否则会被打包到libs或app中
+                  test: /[\\/]node_modules[\\/]_?element-ui(.*)/
                 },
                 commons: {
                   name: 'chunk-commons',
-                  test: resolve('src/components'), // can customize your rules
-                  minChunks: 3, //  minimum common number
+                  test: resolve('src/components'), //自定义规则
+                  minChunks: 3,
                   priority: 5,
                   reuseExistingChunk: true
                 }
               }
             })
-          // https:// webpack.js.org/configuration/optimization/#optimizationruntimechunk
           config.optimization.runtimeChunk('single')
         }
       )
   }
 }
-
-// 微前端子项目配置注入
-const { microConfig, headers } = require('./src/microApp/micro-config.js')
-module.exports.devServer.headers = headers// 配置跨域 必须
-module.exports.configureWebpack.output = microConfig// umd格式注入 必须module.exports.publicPath = `//localhost:${port}`// 端口号配置 不是必须设置
