@@ -75,41 +75,41 @@ export const constantRoutes = [
         component: () => import('@/views/dashboard/index'),
         name: 'marketing',
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
-      }
+      },
+      {
+        path: 'test',
+        // component: Layout,
+        name: 'test',
+        meta: {
+          title: '测试',
+          icon: 'lock',
+        },
+        children: [
+          {
+            path: 'test1',
+            component: () => import('@/views/test/test1'),
+            name: 'test1',
+            meta: {
+              title: 'test1',
+            }
+          },
+          {
+            path: 'test2',
+            component: () => import('@/views/test/test2'),
+            name: 'test2',
+            meta: {
+              title: 'test2'
+            }
+          }
+        ]
+      },
     ]
   },
-  
+
 ]
 
 export const asyncRoutes = [
-  {
-    path: 'test',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: 'test',
-    meta: {
-      title: '测试',
-      icon: 'lock',
-    },
-    children: [
-      {
-        path: '/test1',
-        component: () => import('@/views/test/test1'),
-        name: 'test1',
-        meta: {
-          title: 'test1',
-        }
-      },
-      {
-        path: '/test2',
-        component: () => import('@/views/test/test2'),
-        name: 'test2',
-        meta: {
-          title: 'test2'
-        }
-      }
-    ]
-  },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 

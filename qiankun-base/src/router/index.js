@@ -89,9 +89,32 @@ export const asyncRoutes = [
       path: "marketing",
       children: [{
         path: "/ccrc/marketing"
-      }]
-    }]
+      }, {
+        path: 'test',
+        hidden: true,
+        name: 'test',
+        children: [
+          {
+            path: 'test1',
+            name: 'test1',
+          },
+          // {
+          //   path: 'test2',
+          //   name: 'test2',
+          // }
+        ]
+      },]
+    },
+      // {
+      //   path: "test",
+      //   children: [{
+      //     path: "test1",
+      //     path: "test2"
+      //   }]
+      // },
+    ]
   },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 

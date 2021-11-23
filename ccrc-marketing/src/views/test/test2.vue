@@ -7,6 +7,7 @@
 !-->
 <template>
     <div class=''>
+        444441231
         <el-dialog v-el-drag-dialog :visible.sync='dialog_cof.visible' :title='dialog_cof.title'
             :destroy-on-close='dialog_cof.destroy' :close-on-click-modal='dialog_cof.modal'>
         </el-dialog>

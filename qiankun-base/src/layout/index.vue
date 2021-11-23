@@ -39,7 +39,8 @@
         mounted() {
 
             startQiankun({
-                sandbox: true
+                sandbox: true,
+                prefetch: true
             })
 
         },
