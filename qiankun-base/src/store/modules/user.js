@@ -1,5 +1,9 @@
 import { login, logout, findByToken } from '@/api/auth'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import {
+  getToken, setToken, removeToken, getOrgInfo,
+  setOrgInfo,
+  removeOrgInfo,
+} from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
 const state = {
@@ -15,15 +19,9 @@ const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
   },
-  // SET_INTRODUCTION: (state, introduction) => {
-  //   state.introduction = introduction
-  // },
-  // SET_NAME: (state, name) => {
-  //   state.name = name
-  // },
-  // SET_AVATAR: (state, avatar) => {
-  //   state.avatar = avatar
-  // },
+  SET_ORG: (state, orgInfo) => {
+    state.orgInfo = orgInfo
+  },
   SET_USERINFO: (state, userInfo) => {
     state.userInfo = userInfo
   }
@@ -44,7 +42,16 @@ const actions = {
       })
     })
   },
+  setOrgInfo({
+    commit,
+  }, data) {
+    return new Promise((resolve, reject) => {
+      commit("SET_ORG", data)
+      setOrgInfo(data)
+      resolve()
+    })
 
+  },
   getUserInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       findByToken({

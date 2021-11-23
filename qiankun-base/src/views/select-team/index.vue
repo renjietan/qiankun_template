@@ -58,6 +58,7 @@
 </template>
 
 <script>
+    import { loadMicroApp } from 'qiankun';
     export default {
         name: "selectTeam",
         data() {
@@ -93,19 +94,16 @@
         mounted() { },
         watch: {},
         methods: {
-            //  async getGerRouter() {
-            //     const { accId } = await store.dispatch("user/getUserInfo");
-        //     const accessRoutes = await store.dispatch(
-            //           "permission/generateRoutes",
-            //            accId
-            //     );
-
-            //   },
             handleClick(org) {
                 let self = this;
                 this.$store.dispatch("user/setOrgInfo", org).then(res => {
                     switch (org.id) {
                         case 1:
+                            loadMicroApp({
+                                name: 'app',
+                                entry: '//localhost:9527',
+                                container: '#yourContainer',
+                            });
                             self.$router.push("ccrc/marketing");
                             break;
                         case 2:

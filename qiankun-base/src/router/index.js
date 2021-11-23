@@ -54,61 +54,74 @@ export const constantRoutes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
-  {
-    path: '/404',
-    component: () => import('@/views/error-page/404'),
-    hidden: true
-  },
-  {
-    path: '/401',
-    component: () => import('@/views/error-page/401'),
-    hidden: true
-  },
+  // {
+  //   path: '/404',
+  //   component: () => import('@/views/error-page/404'),
+  //   hidden: true
+  // },
+  // {
+  //   path: '/401',
+  //   component: () => import('@/views/error-page/401'),
+  //   hidden: true
+  // },
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   children: [
+  //     {
+  //       path: 'dashboard',
+  //       component: () => import('@/views/dashboard/index'),
+  //       name: 'Dashboard',
+  //       meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+  //     }
+  //   ]
+  // },
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/select_team',
+    hidden: true,
     children: [
       {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        path: 'select_team',
+        component: () => import('@/views/login/select_team'),
+        name: 'select_team',
+        meta: { title: 'select_team', icon: 'dashboard', affix: true }
       }
     ]
   },
-  
 ]
 
 export const asyncRoutes = [
-  {
-    path: 'test',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: 'test',
-    meta: {
-      title: '测试',
-      icon: 'lock',
-    },
-    children: [
-      {
-        path: '/test1',
-        component: () => import('@/views/test/test1'),
-        name: 'test1',
-        meta: {
-          title: 'test1',
-        }
-      },
-      {
-        path: '/test2',
-        component: () => import('@/views/test/test2'),
-        name: 'test2',
-        meta: {
-          title: 'test2'
-        }
-      }
-    ]
-  },
+  // {
+  //   path: 'test',
+  //   component: Layout,
+  //   redirect: 'noRedirect',
+  //   name: 'test',
+  //   meta: {
+  //     title: '测试',
+  //     icon: 'lock',
+  //   },
+  //   children: [
+  //     {
+  //       path: '/test1',
+  //       component: () => import('@/views/test/test1'),
+  //       name: 'test1',
+  //       meta: {
+  //         title: 'test1',
+  //       }
+  //     },
+  //     {
+  //       path: '/test2',
+  //       component: () => import('@/views/test/test2'),
+  //       name: 'test2',
+  //       meta: {
+  //         title: 'test2'
+  //       }
+  //     }
+  //   ]
+  // },
   { path: '*', redirect: '/404', hidden: true }
 ]
 
